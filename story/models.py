@@ -1,6 +1,7 @@
 from django.db import models
 from base.basemodel import BaseModel
 from ckeditor_uploader.fields import RichTextUploadingField
+from account.models import CustomUser
 # Create your models here
 
 class Tag(BaseModel):
@@ -35,7 +36,7 @@ class Stories(BaseModel):
     descriptions = RichTextUploadingField()
     tag=models.ManyToManyField(Tag,related_name="story_tag")
     author = models.ForeignKey(Author,on_delete=models.CASCADE,related_name='story_author')
-    
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='story_of_user')
 
     def __str__(self):
         return self.title
