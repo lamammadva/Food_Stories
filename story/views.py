@@ -1,7 +1,13 @@
+from django.forms import BaseModelForm
+from django.http import HttpResponse
 from django.shortcuts import render,redirect
 from .models import Stories,Category,Tag,Comment
 from django.db.models import Count
-from .forms import CommentForm,SearchForm
+from django.urls import reverse_lazy
+from .forms import CommentForm,SearchForm,CreateStory
+from django.views.generic import CreateView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib import messages
 
 def stories(request):
     category_filter = request.GET.get('category')
@@ -40,8 +46,19 @@ def story(request,pk):
     }
     return render(request, 'single.html',context)
 
-def create_story(request):
-    return render(request, 'create_story.html')
+class CreateStoryView(CreateView):
+    template_name = "create_story.html"
+    form_class = CreateStory
+    model = Stories 
+    
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+  
+
+
+
 
 def recipes(request):
     return render(request, 'recipes.html')

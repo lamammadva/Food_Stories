@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'account.apps.AccountConfig',
     'story.apps.StoryConfig',
     'ckeditor',
+
 ]
 
 MIDDLEWARE = [
@@ -117,7 +118,17 @@ USE_I18N = True
 
 USE_TZ = True
 
+from django.contrib.messages import constants as message_constants
 
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
+
+MESSAGE_TAGS = {
+    message_constants.DEBUG: 'debug',
+    message_constants.INFO: 'info',
+    message_constants.SUCCESS: 'success',
+    message_constants.WARNING: 'warning',
+    message_constants.ERROR: 'danger',
+}
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
@@ -130,6 +141,9 @@ MEDIA_URL = 'media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
+
+
+
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # CKEditor Settings
@@ -147,6 +161,12 @@ CKEDITOR_CONFIGS = {
         },
 }
 LOGIN_URL = '/login/'
-LOGIN_REDIRECT_URL = '/profile/'
 LOGOUT_URL = '/logout/'
 LOGOUT_REDIRECT_URL = '/login/'
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "lemanb.memmedova@gmail.com"
+EMAIL_HOST_PASSWORD = "ffjdscsawctqlhmv"

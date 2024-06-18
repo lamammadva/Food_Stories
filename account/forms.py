@@ -10,7 +10,7 @@ class CustomUserCreationForm(UserCreationForm):
         model = CustomUser
         fields = ("email","first_name","last_name")
 
-class LofinForm(AuthenticationForm):
+class LoginForm(AuthenticationForm):
     username = forms.EmailInput()
     password = forms.PasswordInput()
 
@@ -20,3 +20,4 @@ class CustomUserChangeForm(UserChangeForm):
     class Meta:
         model = CustomUser
         fields = ("email",)
+

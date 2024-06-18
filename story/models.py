@@ -2,6 +2,7 @@ from django.db import models
 from base.basemodel import BaseModel
 from ckeditor_uploader.fields import RichTextUploadingField
 from account.models import CustomUser
+from django.urls import reverse
 # Create your models here
 
 class Tag(BaseModel):
@@ -35,15 +36,18 @@ class Stories(BaseModel):
     category = models.ForeignKey(Category,on_delete=models.CASCADE,verbose_name='Category of the blog',related_name="story_category")
     descriptions = RichTextUploadingField()
     tag=models.ManyToManyField(Tag,related_name="story_tag")
-    author = models.ForeignKey(Author,on_delete=models.CASCADE,related_name='story_author')
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='story_of_user')
+    author = models.ForeignKey(CustomUser,on_delete=models.CASCADE,related_name='story_author')
+    # user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='story_of_user')
 
     def __str__(self):
         return self.title
+    
     class Meta:
         verbose_name = "Story"
         verbose_name_plural = "Stories"
-        
+
+    def get_absolute_url(self):
+        return reverse('profile',kwargs={'pk': self.author.pk})
     
 class Comment(BaseModel):
     name =models.CharField(verbose_name="Name of Comment",max_length=20,help_text="max 20 character")

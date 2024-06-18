@@ -1,5 +1,5 @@
 from django.forms import ModelForm,Form
-from .models import Comment
+from .models import Comment,Stories
 from django import forms
 class CommentForm(ModelForm):
     class Meta:
@@ -14,3 +14,9 @@ class CommentForm(ModelForm):
 
 class SearchForm(forms.Form):
     search =forms.CharField(required=True)
+
+
+class CreateStory(ModelForm):
+    class Meta:
+        model=Stories
+        fields =["title","descriptions",'category',"image"]
