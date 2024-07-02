@@ -65,8 +65,10 @@ class ProfileView(DetailView):
     template_name = "user-profile.html"
     model = CustomUser
     context_object_name = "user"
-    
 
+    def get_object(self, *args, **kwargs):
+        return self.request.user
+    
 
 
 

@@ -49,16 +49,31 @@ class Stories(BaseModel):
     def get_absolute_url(self):
         return reverse('profile',kwargs={'pk': self.author.pk})
     
+        
+class Recipes(BaseModel):
+    title =models.CharField(verbose_name="title of recipes" , max_length=50,help_text="max 50 characters")
+    image = models.ImageField(upload_to="recipe_img",verbose_name="Image of Recipes")
+    category = models.ForeignKey(Category,on_delete=models.CASCADE,verbose_name='Category of the recipes',related_name="recipe_category")
+    descriptions = RichTextUploadingField()
+    tag=models.ManyToManyField(Tag,related_name="recipe_tag")
+    author = models.ForeignKey(CustomUser,on_delete=models.CASCADE,related_name='recipe_author')
+
+    def __str__(self):
+        return self.title
+    
+    class Meta:
+        verbose_name = "Recipe"
+        verbose_name_plural = "Recipes"
+
 class Comment(BaseModel):
     name =models.CharField(verbose_name="Name of Comment",max_length=20,help_text="max 20 character")
     email = models.EmailField(verbose_name="email of comment")
     message = models.TextField(verbose_name="Mesage of comment")
-    story = models.ForeignKey(Stories,on_delete=models.CASCADE,related_name="story_comment")
+    story = models.ForeignKey(Stories,on_delete=models.CASCADE,related_name="story_comment",null=True, blank=True)
+    recipe = models.ForeignKey(Recipes,on_delete = models.CASCADE,related_name="recipe_comment",null=True, blank=True)
 
     def __str__(self):
         return self.name
     class Meta:
         verbose_name = "Comment"
         verbose_name_plural = "Comments"
-        
-

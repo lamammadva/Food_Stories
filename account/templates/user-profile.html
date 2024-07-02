@@ -15,7 +15,7 @@
                             {% endif %}
                             <div class="text pt-4">
                             {% if user.about %}
-                                <p>{{user.about}}</p>
+                                <p>{{user.about|safe}}</p>
                             {% endif %}
                             </div>
                         </div>
@@ -40,26 +40,26 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-4 ftco-animate">
+                        {% for story in user.story_author.all %}
+                        <div class="col-md-4 ftco-animate ">
                             <div class="blog-entry">
-                                <a class="img-2">
-
+                                <a href="{% url 'story' story.pk %}" class="img-2">
                                     <div class="user-events__edit">
                                         <button type="button" class="edit-event"><i class="fa fa-pencil" aria-hidden="true"></i></button>
                                         <button type="button" class="delete-event"><i class="fa fa-trash" aria-hidden="true"></i></button>
                                     </div>
-
-                                    <img src="{% static 'images/blog-1.jpg' %}" class="img-fluid" alt="Colorlib Template">
+                                    <img src="{{story.image.url}}"  class="img-fluid" alt="Colorlib Template">
                                 </a>
                                 <div class="text pt-3">
-                                    <p class="meta d-flex"><span class="pr-3">Dessert</span><span class="ml-auto pl-3">March 01, 2018</span>
+                                    <p class="meta d-flex"><span class="pr-3">{{story.category}}</span><span class="ml-auto pl-3">{{story.created_at| date:"M,d,y"}}</span>
                                     </p>
-                                    <h3><a href="#">Tasty &amp; Delicious Foods</a></h3>
-                                    <p class="mb-0"><a href="single.html" class="btn btn-black py-2">Read More <span
+                                    <h3><a href="#">{{story.title}}</a></h3>
+                                    <p class="mb-0"><a href="{% url 'story' story.pk %}" class="btn btn-black py-2">Read More <span
                                         class="icon-arrow_forward ml-4"></span></a></p>
                                 </div>
                             </div>
                         </div>
+                        {% endfor %}
                        
                     </div>
                 </div>

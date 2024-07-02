@@ -17,15 +17,22 @@
                             <textarea name="descriptions" rows="10" class="form-control" placeholder="Description"></textarea>
                         </div>
                         <div class="form-group">
-                            <select class="form-control" name="category" id="">
+                            <select class="form-control mb-3" name="category" id="">
                                 <option value="0">Select category</option>
                                 {% for cat in category_list %}
                                     <option value="1">{{cat}}</option>
                                 {% endfor %}
+                            </select>
+                            <select class="form-control mb-3" name="tag" id="">
+                                <option value="0">Select tags</option>
+                                {% for tag in tags %}
+                                    <option value="1">{{tag}}</option>
+                                {% endfor %}
+                     
                                 </select>
                         </div>
                         <div class="form-group">
-                            <input name="image" type="file" accept="image/png,image/gif,image/jpeg,image.jpg">
+                            <input name="image" type="file"  accept="image/png,image/gif,image/jpeg,image.jpg">
                         </div>
                         <div class="form-group">
                             <input type="submit" value="Create" class="btn btn-primary py-3 px-5">

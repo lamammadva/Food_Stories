@@ -1,7 +1,20 @@
+from typing import Any
 from django.shortcuts import render
 from .forms import ContactUsForm
-def home(request):
-    return render(request, 'index.html')
+from story.models import Stories
+from django.db.models import Count
+from django.views.generic import TemplateView
+from story.models import Stories
+class HomeView(TemplateView):
+    template_name = "index.html"
+    def get_context_data(self, **kwargs):
+        context =  super().get_context_data(**kwargs)
+        context['stories'] = Stories.objects.annotate(count = Count("story_comment")).order_by('-count')[:3]
+        return context
+
+
+    
+   
 
 def about(request):
     return render(request, 'about.html')

@@ -8,9 +8,9 @@
         <div class="container">
             <div class="row no-gutters slider-text align-items-end justify-content-center">
                 <div class="col-md-9 ftco-animate pb-5 text-center">
-                    <h1 class="mb-3 bread">Single Page</h1>
-                    <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home <i
-                            class="ion-ios-arrow-forward"></i></a></span> <span>Single Page<i
+                    <h1 class="mb-3 bread">{{all_story.title}} Detail Page</h1>
+                    <p class="breadcrumbs"><span class="mr-2"><a href="{% url 'home' %}">Home <i
+                            class="ion-ios-arrow-forward"></i></a></span> <span>Detail Page<i
                             class="ion-ios-arrow-forward"></i></span></p>
                 </div>
             </div>
@@ -21,26 +21,23 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 order-lg-last ftco-animate">
-                    {{all_story.descriptions|safe}}
-                        
-                    
                     <div class="tag-widget post-tag-container mb-5 mt-5">
                         <div class="tagcloud">
                             {% for tag in all_story.tag.all %}
-                                <a href="#" class="tag-cloud-link">{{tag.name}}</a>
+                                <a href="#" class="tag-cloud-link">{{tag}}</a>
                             {% endfor %}
                         </div>
                     </div>
-
-                    <div class="about-author d-flex p-4 bg-light">
+                    {{all_story.descriptions|safe}}
+                        
+                    
+                    <div class="about-author d-flex p-4 bg-light mt-5">
                         <div class="bio mr-5">
-                            <img src="{% static 'images/person_1.jpg' %}" alt="Image placeholder" class="img-fluid mb-4">
+                            <img src="{{all_story.author.profile_photo.url}}" alt="Image placeholder" class="img-fluid-author mb-4">
                         </div>
                         <div class="desc">
-                            <a href="#"><h3>George Washington</h3></a>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus itaque, autem
-                                necessitatibus voluptate quod mollitia delectus aut, sunt placeat nam vero culpa sapiente
-                                consectetur similique, inventore eos fugit cupiditate numquam!</p>
+                            <a href="#"><h3>{{all_story.author.first_name}} {{all_story.author.last_name}}</h3></a>
+                            <p>{{all_story.author.about}}</p>
                         </div>
                     </div>
 
@@ -51,7 +48,7 @@
                             {% for comment in all_story.story_comment.all %}    
                             <li class="comment">
                                 <div class="vcard bio">
-                                    <img src="{% static 'images/user.png' %}" alt="Image placeholder">
+                                    <img src="{{all_story.image.url}}" alt="Image placeholder">
                                 </div>
                                 <div class="comment-body">
                                     <h3>{{comment.name}}</h3>
@@ -87,32 +84,19 @@
                                 <div class="form-group">
                                     <input type="submit" value="Post Comment" class="btn py-3 px-4 btn-primary">
                                 </div>
-
                             </form>
                         </div>
                     </div>
-
                 </div> <!-- .col-md-8 -->
                 <div class="col-lg-4 sidebar pr-lg-5 ftco-animate">
-                    <div class="sidebar-box">
-                        <form method="post" action="/search/" class="search-form">
-                            {% csrf_token %}
-                            <div class="form-group">
-                                <input type="text" name="search" class="form-control"  placeholder="Search">
-                                <button type="submit" class="icon icon-search p-2 " style="border: none;"></button>
-                            </div>
-                        </form>
-                    </div>
                     <div class="sidebar-box ftco-animate">
                         <ul class="categories">
                             <h3 class="heading mb-4">Categories</h3>
                             {% for category in category_list %}
                                 <li><a href="{% url 'stories' %}?category={{category.name}}">{{category}} <span>({{category.count}})</span></a></li>
                             {% endfor %}
-                            
                         </ul>
                     </div>
-
                     <div class="sidebar-box ftco-animate">
                         <h3 class="heading mb-4">Recent Blog</h3>
                         {% for recent in recent_blog %}
@@ -122,7 +106,7 @@
                                     <h3><a href="{% url 'story' recent.pk %}">{{recent.title}}</a></h3>
                                     <div class="meta">
                                         <div><a href="#"><span class="icon-calendar"></span>  {{recent.created_at}}</a></div>
-                                        <div><a href="#"><span class="icon-person"></span> Admin</a></div>
+                                        <div><a href="#"><span class="icon-person"></span> {{recent.author}}</a></div>
                                         <div><a href="#"><span class="icon-chat"></span>{{recent.story_comment.count}}</a></div>
                                     </div>
                                 </div>
