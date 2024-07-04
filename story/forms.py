@@ -19,7 +19,7 @@ class SearchForm(forms.Form):
 class CreateStoryForm(ModelForm):
     class Meta:
         model=Stories
-        fields =["title","descriptions",'category',"image","tag"]
+        fields =["title","recipes",'category',"image","tag"]
         widgets = {
             "tag":forms.SelectMultiple(attrs= {'placeholder':"Name",'class':"form-control"}),
         }

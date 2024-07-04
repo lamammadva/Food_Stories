@@ -37,7 +37,7 @@
                                     <h3><a href="single.html">{{recipe.title}}</a></h3>
                                     <p>{{recipe.descriptions|safe|truncatechars:150}}
                                     </p>
-                                    <p class="mb-0"><a href="{% url 'recipes_detail' recipe.pk %}" class="btn btn-primary">Read More <span
+                                    <p class="mb-0"><a href="{% url 'recipe' recipe.pk %}" class="btn btn-primary">Read More <span
                                             class="icon-arrow_forward ml-4"></span></a></p>
                                 </div>
                             </div>
@@ -64,20 +64,25 @@
 
                 <div class="col-lg-3">
                     <div class="sidebar-wrap">
+                        {% if user.is_authenticated %}
                         <div class="sidebar-box p-4 about text-center ftco-animate">
-                            <h2 class="heading mb-4">About Me</h2>
+                            <h2 class="heading mb-4">About<br>{{user.first_name}} {{user.last_name}}</h2>
                             <img src="{% static 'images/author.jpg' %}" class="img-fluid" alt="Colorlib Template">
                             <div class="text pt-4">
-                                <p>Hi! My name is <strong>Cathy Deon</strong>, behind the word mountains, far from the
+                                <p>Hi! My name is <strong>{{user.first_name}} {{user.last_name}}</strong>, behind the word mountains, far from the
                                     countries Vokalia and Consonantia, there live the blind texts. Separated they live in
                                     Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
                             </div>
                         </div>
+                        {% endif %}
                         <div class="sidebar-box p-4 ftco-animate">
-                            <form action="#" class="search-form">
+                            <form method="POST"  action="/search/" class="search-form">
+                                {% csrf_token %}
                                 <div class="form-group">
                                     <span class="icon icon-search"></span>
-                                    <input type="text" class="form-control" placeholder="Search">
+                                    <input type="text" name="search" class="form-control" placeholder="Search">
+                                    <button type="submit" class="icon icon-search p-2" style="border: none;"></button>
+
                                 </div>
                             </form>
                         </div>

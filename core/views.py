@@ -10,6 +10,8 @@ class HomeView(TemplateView):
     def get_context_data(self, **kwargs):
         context =  super().get_context_data(**kwargs)
         context['stories'] = Stories.objects.annotate(count = Count("story_comment")).order_by('-count')[:3]
+        context["recents"] = Stories.objects.order_by("-created_at")[:4]
+        
         return context
 
 

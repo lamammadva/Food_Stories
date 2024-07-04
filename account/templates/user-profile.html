@@ -27,9 +27,7 @@
                         <div class="sidebar-box ftco-animate user-profile">
                             <a href="{% url 'create_story' %}" class="btn btn-hover-color py-2">Create story </a>
                         </div>
-                        <div class="sidebar-box ftco-animate user-profile ">
-                            <a href="single.html" class="btn btn-hover-color py-2 mb-4">Create recipe </a>
-                        </div>
+                        
                       
                     </div>
                 </div>
@@ -43,7 +41,7 @@
                         {% for story in user.story_author.all %}
                         <div class="col-md-4 ftco-animate ">
                             <div class="blog-entry">
-                                <a href="{% url 'story' story.pk %}" class="img-2">
+                                <a href="{% url 'recipe' story.pk %}" class="img-2">
                                     <div class="user-events__edit">
                                         <button type="button" class="edit-event"><i class="fa fa-pencil" aria-hidden="true"></i></button>
                                         <button type="button" class="delete-event"><i class="fa fa-trash" aria-hidden="true"></i></button>
@@ -54,7 +52,7 @@
                                     <p class="meta d-flex"><span class="pr-3">{{story.category}}</span><span class="ml-auto pl-3">{{story.created_at| date:"M,d,y"}}</span>
                                     </p>
                                     <h3><a href="#">{{story.title}}</a></h3>
-                                    <p class="mb-0"><a href="{% url 'story' story.pk %}" class="btn btn-black py-2">Read More <span
+                                    <p class="mb-0"><a href="{% url 'recipe' story.pk %}" class="btn btn-black py-2">Read More <span
                                         class="icon-arrow_forward ml-4"></span></a></p>
                                 </div>
                             </div>

@@ -33,11 +33,13 @@
                     
                     <div class="about-author d-flex p-4 bg-light mt-5">
                         <div class="bio mr-5">
+                            {% if all_story.author.profile_photo %}
                             <img src="{{all_story.author.profile_photo.url}}" alt="Image placeholder" class="img-fluid-author mb-4">
+                            {% endif %}
                         </div>
                         <div class="desc">
                             <a href="#"><h3>{{all_story.author.first_name}} {{all_story.author.last_name}}</h3></a>
-                            <p>{{all_story.author.about}}</p>
+                            <p>{{all_story.author.about|safe}}</p>
                         </div>
                     </div>
 

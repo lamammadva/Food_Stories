@@ -28,12 +28,12 @@
                             <div class="col-md-4 ftco-animate">
             
                                 <div class="blog-entry">
-                                    <a href="{% url 'story' story.pk %}" class="img-2 "><img src="{{story.image.url}}" class="img-fluid " alt="Colorlib Template"></a>
+                                    <a href="{% url 'recipe' story.pk %}" class="img-2 "><img src="{{story.image.url}}" class="img-fluid " alt="Colorlib Template"></a>
                                     <div class="text pt-3">
                                         <p class="meta d-flex"><span class="pr-3">{{story.category}}</span><span class="ml-auto pl-3">{{story.created_at| date:"M,d,y"}}</span>
                                         </p>
-                                        <h3><a href="{% url 'story' story.pk %}">{{story.title}}</a></h3>
-                                        <p class="mb-0"><a href="{% url 'story' story.pk %}" class="btn btn-black py-2">Read More <span
+                                        <h3><a href="{% url 'recipe' story.pk %}">{{story.title}}</a></h3>
+                                        <p class="mb-0"><a href="{% url 'recipe' story.pk %}" class="btn btn-black py-2">Read More <span
                                                 class="icon-arrow_forward ml-4"></span></a></p>
                                     </div>
                                 </div>
@@ -66,11 +66,13 @@
                             <h2 class="heading mb-4">{{user.first_name}} {{user.last_name}}</h2>
                             <img src="{% static 'images/author.jpg' %}" class="img-fluid" alt="Colorlib Template">
                             <div class="text pt-4">
-                                {{user.about|safe}}
+                                <p>Hi! My name is <strong>{{user.first_name}} {{user.last_name}}</strong>, behind the word mountains, far from the
+                                    countries Vokalia and Consonantia, there live the blind texts. Separated they live in
+                                    Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
                             </div>
                         </div>
                         {% endif %}
-                        <div class="sidebar-box p-4 ftco-animate">
+                        <!-- <div class="sidebar-box p-4 ftco-animate">
                                 <form method="POST" action="/search/" class="search-form">
                                     {% csrf_token %}
                                     <div class="form-group">
@@ -78,8 +80,8 @@
                                         <button type="submit" class="icon icon-search p-2" style="border: none;"></button>
                                     </div>
                                 </form>
-                        </div>
-                        <div class="sidebar-box categories text-center ftco-animate">
+                        </div> -->
+                        <!-- <div class="sidebar-box categories text-center ftco-animate">
                             <h2 class="heading mb-4">Categories</h2>
                             <ul class="category-image">
                                 {% for category in category_list %}
@@ -94,7 +96,7 @@
                                 {% endfor %}
                              
                             </ul>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
